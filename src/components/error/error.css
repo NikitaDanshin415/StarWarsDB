@@ -1,0 +1,17 @@
+.error{
+    color: #eb3c3c;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.error img{
+    width: 150px;
+    height: 150px;
+}
+
+.error span{
+    display: block;
+    margin-bottom: 1rem;
+}
