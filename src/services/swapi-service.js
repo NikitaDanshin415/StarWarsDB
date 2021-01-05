@@ -2,6 +2,10 @@ export default class SwapiService{
 
     _apiBase = 'https://swapi.dev/api';
 
+    planetPicture = {
+        src: "https://blog.rahulbhutani.com/wp-content/uploads/2020/05/Screenshot-2018-12-16-at-21.06.29.png"
+    };
+
     async getResource(url) {
         const res = await fetch(`${this._apiBase}${url}`);
 
@@ -11,6 +15,35 @@ export default class SwapiService{
 
         const body = await res.json();
         return body;
+    }
+
+    async getPlanetPicture(id) {
+        await fetch(`https://starwars-visualguide.com/assets/img/planets/${id}.jpg`)
+            .then((res)=>{
+                if(res.ok){
+                    this.planetPicture = {
+                        src:res.url,
+                    }
+                }
+            })
+    }
+
+    async getPlanet(id){
+        const planet =  await this.getResource(`/planets/${id}`);
+        await this.getPlanetPicture(id);
+
+        return this._transformPlanet(planet , this.planetPicture.src);
+    }
+
+    _transformPlanet(planet, picture){
+        return {
+            id:this._extractId(planet),
+            name: planet.name,
+            population: planet.population,
+            rotationPeriod:planet.rotation_period,
+            diameter:planet.diameter,
+            src: picture
+        }
     }
 
     async getAllPeople(){
@@ -33,11 +66,6 @@ export default class SwapiService{
         return this._transformPerson(person);
     }
 
-    async getPlanet(id){
-        const planet =  await this.getResource(`/planets/${id}`);
-        return this._transformPlanet(planet);
-    }
-
 
     async getStarShip(id){
         const starship =  await this.getResource(`/starships/${id}`);
@@ -49,15 +77,6 @@ export default class SwapiService{
         return item.url.match(idRegExp)[1];
     }
 
-    _transformPlanet(planet){
-        return {
-            id:this._extractId(planet),
-            name: planet.name,
-            population: planet.population,
-            rotationPeriod:planet.rotation_period,
-            diameter:planet.diameter,
-        }
-    }
 
     _transformPerson(person){
         return {
