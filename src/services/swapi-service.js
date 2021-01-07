@@ -35,7 +35,7 @@ export default class SwapiService{
         return this._transformPlanet(planet , this.planetPicture.src);
     }
 
-    _transformPlanet(planet, picture){
+    _transformPlanet = (planet, picture)=>{
         return {
             id:this._extractId(planet),
             name: planet.name,
@@ -78,17 +78,18 @@ export default class SwapiService{
     }
 
 
-    _transformPerson(person){
+    _transformPerson = (person) =>{
+        console.log(person);
         return {
             id:this._extractId(person),
             name: person.name,
             gender: person.gender,
-            birthDate: person.birthDate,
-            eyeColor: person.eyeColor,
+            birthDate: person.birth_year,
+            eyeColor: person.eye_color,
         }
     }
 
-    _transformStarship(starship){
+    _transformStarship = (starship) =>{
         return {
             id:this._extractId(starship),
             name: starship.name,

@@ -7,10 +7,6 @@ import Error from "../error";
 
 export default class RandomPlanet extends React.Component{
 
-    constructor() {
-        super();
-        setInterval( this.updatePlanet, 2000);
-    }
     swapi = new SwapiService();
 
     state = {
@@ -18,6 +14,15 @@ export default class RandomPlanet extends React.Component{
         loading: true,
         error: false,
     }
+
+    componentDidMount() {
+        let updatePlanetInt = setInterval(this.updatePlanet, 5000)
+    }
+
+    componentWillUnmount() {
+        console.log('componentWillUnmount')
+    }
+
 
     onPlanetLoaded = (planet) =>{
 
@@ -36,6 +41,7 @@ export default class RandomPlanet extends React.Component{
     }
 
     updatePlanet = () =>{
+        console.log('update')
         const id = Math.floor(Math.random()*25) + 3;
 
         this.swapi.getPlanet(id)
@@ -47,6 +53,7 @@ export default class RandomPlanet extends React.Component{
 
 
     render() {
+        console.log('render');
         const {planet,loading, error, src} = this.state;
         const hasData = !(loading || error)
 
