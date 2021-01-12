@@ -2,6 +2,7 @@ import React from 'react';
 
 import './person-details.css'
 import SwapiService from "../../services/swapi-service";
+import ErrorButton from "../error-button";
 
 export default class PersonDetails extends React.Component{
 
@@ -34,7 +35,7 @@ export default class PersonDetails extends React.Component{
     }
 
 
-    componentDidUpdate(prevProps, prevState, snapshot) {
+    componentDidUpdate(prevProps, prevState) {
         if(this.props.personId !== prevProps.personId){
             this.updatePerson()
         }
@@ -67,6 +68,9 @@ export default class PersonDetails extends React.Component{
                         <li className="list-group-item">
                             <span className="term">Eye Color</span>
                             <span>{eyeColor}</span>
+                        </li>
+                        <li className="list-group-item">
+                           <ErrorButton/>
                         </li>
                     </ul>
                 </div>

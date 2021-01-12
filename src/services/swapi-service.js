@@ -79,7 +79,6 @@ export default class SwapiService{
 
 
     _transformPerson = (person) =>{
-        console.log(person);
         return {
             id:this._extractId(person),
             name: person.name,

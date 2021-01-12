@@ -2,3 +2,15 @@
     width: 900px;
     margin: auto;
 }
+
+.button-row {
+    margin: 0 0 1rem 0;
+}
+
+.button-row button {
+    margin-right: 1rem;
+}
+
+.stardb-app .row {
+    margin-bottom: 1rem;
+}
