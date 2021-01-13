@@ -3,11 +3,13 @@ import React from 'react';
 import './person-details.css'
 import SwapiService from "../../services/swapi-service";
 import ErrorButton from "../error-button";
+import Error from "../error";
 
 export default class PersonDetails extends React.Component{
 
     state = {
         person: null,
+        hasError:false,
     }
 
     swapi = new SwapiService();
@@ -28,7 +30,11 @@ export default class PersonDetails extends React.Component{
             })
     }
 
-
+    componentDidCatch(error, errorInfo) {
+        this.setState({
+            hasError: true,
+        })
+    }
 
     componentDidMount() {
         this.updatePerson();
@@ -38,10 +44,17 @@ export default class PersonDetails extends React.Component{
     componentDidUpdate(prevProps, prevState) {
         if(this.props.personId !== prevProps.personId){
             this.updatePerson()
+            this.setState({
+                hasError: false,
+            })
         }
     }
 
     render() {
+
+        if(this.state.hasError){
+            return <Error/>
+        }
 
         if(!this.state.person){
             return <span>Select a person from a list</span>

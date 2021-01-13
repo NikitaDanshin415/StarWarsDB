@@ -3,23 +3,32 @@ import React from 'react';
 import './item-list.css'
 import SwapiService from "../../services/swapi-service";
 import Spinner from "../spinner";
+import Error from "../error";
 
 export default class ItemList extends React.Component{
 
-    swapi = new SwapiService();
-
     state = {
-      pepoleList: null,
+        itemList: null,
+        hasError: false,
     };
 
     componentDidMount() {
-        this.swapi.getAllPeople()
-            .then((peopleList)=>{
+        const {getData} = this.props
+
+        getData()
+            .then((itemList)=>{
                 this.setState({
-                    peopleList: peopleList,
+                    itemList: itemList,
                 });
             });
     }
+
+    componentDidCatch(error, errorInfo) {
+        this.setState({
+            hasError: true,
+        })
+    }
+
 
     renderItems(arr) {
         return arr.map(({id, name})=>{
@@ -34,13 +43,17 @@ export default class ItemList extends React.Component{
     }
 
     render() {
-        const {peopleList} = this.state;
+        const {itemList} = this.state;
 
-        if(!peopleList){
+        if(this.state.hasError){
+            return <Error/>
+        }
+
+        if(!itemList){
             return <Spinner/>
         }
 
-        const items = this.renderItems(peopleList)
+        const items = this.renderItems(itemList)
         return(
             <ul className="item-list list-group">
                 {items}

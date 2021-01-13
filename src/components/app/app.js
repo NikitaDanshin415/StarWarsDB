@@ -7,9 +7,12 @@ import Error from "../error";
 import ErrorButton from "../error-button";
 
 import './app.css';
+import SwapiService from "../../services/swapi-service";
 
 
 export default class App extends React.Component{
+
+    swapi = new SwapiService();
 
     state = {
         showRandomPlanet: true,
@@ -55,7 +58,10 @@ export default class App extends React.Component{
                     </button>
                     <ErrorButton/>
                 </div>
+
                 <PeoplePage/>
+
+
 
             </div>
             )
