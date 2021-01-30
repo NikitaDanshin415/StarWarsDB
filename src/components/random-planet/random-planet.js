@@ -24,9 +24,7 @@ export default class RandomPlanet extends React.Component{
         clearInterval(this.interval);
     }
 
-
     onPlanetLoaded = (planet) =>{
-
         this.setState({
             planet,
             loading: false,
@@ -48,9 +46,6 @@ export default class RandomPlanet extends React.Component{
             .then(this.onPlanetLoaded)
             .catch(this.onError);
     }
-
-
-
 
     render() {
         const {planet,loading, error, src} = this.state;

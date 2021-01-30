@@ -8,6 +8,8 @@ import ErrorButton from "../error-button";
 
 import './app.css';
 import SwapiService from "../../services/swapi-service";
+import ItemList from "../item-list";
+import ItemDetails from "../item-details";
 
 
 export default class App extends React.Component{
@@ -60,7 +62,6 @@ export default class App extends React.Component{
                 </div>
 
                 <PeoplePage/>
-
 
 
             </div>

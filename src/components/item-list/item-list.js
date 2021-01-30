@@ -1,7 +1,6 @@
 import React from 'react';
 
 import './item-list.css'
-import SwapiService from "../../services/swapi-service";
 import Spinner from "../spinner";
 import Error from "../error";
 
@@ -31,12 +30,16 @@ export default class ItemList extends React.Component{
 
 
     renderItems(arr) {
-        return arr.map(({id, name})=>{
+        return arr.map((item)=>{
+            const { id } = item
+
+            const label = this.props.children(item)
+
             return(
                 <li className="list-group-item"
                     key = {id}
                     onClick={()=> this.props.onItemSelected(id)}>
-                    {name}
+                    {label}
                 </li>
                 )
         });
