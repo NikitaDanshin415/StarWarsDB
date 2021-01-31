@@ -2,15 +2,15 @@ import React from 'react';
 
 import Header from '../header';
 import RandomPlanet from '../random-planet';
-import PeoplePage from "../people-page";
 import Error from "../error";
-import ErrorButton from "../error-button";
+
 
 import './app.css';
 import SwapiService from "../../services/swapi-service";
-import ItemList from "../item-list";
 import ItemDetails from "../item-details";
-
+import Row from "../Row";
+import Record from "../Record";
+import ItemList from '../item-list';
 
 export default class App extends React.Component{
 
@@ -46,26 +46,50 @@ export default class App extends React.Component{
             <RandomPlanet/> :
             null;
 
+        const personDetails = (
+            <ItemDetails
+                itemId={11}
+                getData={this.swapi.getPerson}
+                getImageUrl={this.swapi.getPersonImage}>
+                    <Record field='gender' label='Gender'/>
+                    <Record field='eyeColor' label='Eye color'/>
+            </ItemDetails>
+
+                );
+
+        const starshipDetails = (
+            <ItemDetails
+                itemId={5}
+                getData={this.swapi.getStarShip}
+                getImageUrl={this.swapi.getStarshipImage}>
+                    <Record field='model' label='Model'/>
+                    <Record field='length' label='Length'/>
+                    <Record field='costInCredits' label='Cost'/>
+            </ItemDetails>
+        );
 
         return(
             <div>
                 <Header />
-                {planet}
+                <ItemList
+                    getData={this.swapi.getAllPeople}
+                    onItemSelected={() => {}}>
 
-                <div className="row mb2 button-row">
-                    <button
-                        className="toggle-planet btn btn-warning btn-lg"
-                        onClick={this.toggleRandomPlanet}>
-                        Toggle Random Planet
-                    </button>
-                    <ErrorButton/>
-                </div>
+                    { ({name}) => <span>{name}</span> }
+                </ItemList>
 
-                <PeoplePage/>
+                <ItemList
+                    getData={this.swapi.getAllPlanets}
+                    onItemSelected={() => {}}>
 
+                    { ({name}) => <span>{name}</span> }
+                </ItemList>
 
+                {/*<Row*/}
+                {/*    left={personDetails}*/}
+                {/*    right={starshipDetails}/>*/}
             </div>
             )
 
     }
-}
+};

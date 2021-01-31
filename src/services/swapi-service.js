@@ -1,6 +1,7 @@
 export default class SwapiService{
 
     _apiBase = 'https://swapi.dev/api';
+    _imageBase = 'https://starwars-visualguide.com/assets/img';
 
     planetPicture = {
         src: "https://blog.rahulbhutani.com/wp-content/uploads/2020/05/Screenshot-2018-12-16-at-21.06.29.png"
@@ -26,6 +27,17 @@ export default class SwapiService{
                     }
                 }
             })
+    }
+    getPersonImage = ({id}) => {
+        return `${this._imageBase}/characters/${id}.jpg`
+    }
+
+    getStarshipImage = ({id}) => {
+        return `${this._imageBase}/starships/${id}.jpg`
+    }
+
+    getPlanetImage = ({id}) => {
+        return `${this._imageBase}/planets/${id}.jpg`
     }
 
     getPlanet = async (id) => {
@@ -94,7 +106,7 @@ export default class SwapiService{
             name: starship.name,
             model: starship.model,
             manufacturer: starship.manufacturer,
-            costInCredits: starship.costInCredits,
+            costInCredits: starship.cost_in_credits,
             length: starship.length,
             crew: starship.crew,
             passengers: starship.passengers,
